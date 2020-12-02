@@ -24,7 +24,7 @@ types = []
 members = ["crates/*"]
 
 [dependencies]
-bevy = "0.3"
+bevy = { git = "https://github.com/bevyengine/bevy.git" }
 bevy_tilemap_spritesheet = { path = "crates/sprite_sheet" }
 bevy_tilemap_types = { path = "crates/types" }
 bitflags = "1.2.1"
