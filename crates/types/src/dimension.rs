@@ -154,8 +154,8 @@ macro_rules! dimension2_glam_impl {
         impl From<$vec> for Dimension2 {
             fn from(vec: $vec) -> Dimension2 {
                 Dimension2 {
-                    width: vec.x() as u32,
-                    height: vec.y() as u32,
+                    width: vec.x as u32,
+                    height: vec.y as u32,
                 }
             }
         }
@@ -456,9 +456,9 @@ macro_rules! dimension3_glam_impl {
         impl From<$vec> for Dimension3 {
             fn from(vec: $vec) -> Dimension3 {
                 Dimension3 {
-                    width: vec.x() as u32,
-                    height: vec.y() as u32,
-                    depth: vec.z() as u32,
+                    width: vec.x as u32,
+                    height: vec.y as u32,
+                    depth: vec.z as u32,
                 }
             }
         }

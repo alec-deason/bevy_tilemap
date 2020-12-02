@@ -50,7 +50,7 @@ impl GameState {
 }
 
 fn setup(
-    mut commands: Commands,
+    commands: &mut Commands,
     mut tile_sprite_handles: ResMut<TileSpriteHandles>,
     asset_server: Res<AssetServer>,
 ) {
@@ -60,7 +60,7 @@ fn setup(
 }
 
 fn load(
-    mut commands: Commands,
+    commands: &mut Commands,
     mut sprite_handles: ResMut<TileSpriteHandles>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
     mut textures: ResMut<Assets<Texture>>,
@@ -108,7 +108,7 @@ fn load(
 }
 
 fn build_random_dungeon(
-    mut commands: Commands,
+    commands: &mut Commands,
     mut game_state: ResMut<GameState>,
     texture_atlases: Res<Assets<TextureAtlas>>,
     asset_server: Res<AssetServer>,
@@ -302,9 +302,9 @@ fn main() {
         .init_resource::<GameState>()
         .add_plugins(DefaultPlugins)
         .add_plugins(TilemapDefaultPlugins)
-        .add_startup_system(setup.system())
-        .add_system(load.system())
-        .add_system(build_random_dungeon.system())
-        .add_system(character_movement.system())
+        .add_startup_system(setup)
+        .add_system(load)
+        .add_system(build_random_dungeon)
+        .add_system(character_movement)
         .run()
 }

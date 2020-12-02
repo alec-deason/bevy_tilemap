@@ -67,7 +67,7 @@ impl Default for ChunkComponents {
                         bind_group: 2,
                         binding: 1,
                     },
-                ],
+                ].into_iter().collect(),
                 ..Default::default()
             },
         );

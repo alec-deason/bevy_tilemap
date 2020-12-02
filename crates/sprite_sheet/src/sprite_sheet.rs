@@ -153,7 +153,7 @@ impl SpriteSheetBuilder {
         let rect_height = packed_location.height() as usize;
         let rect_x = packed_location.x() as usize;
         let rect_y = packed_location.y() as usize;
-        let atlas_width = atlas_texture.size.x() as usize;
+        let atlas_width = atlas_texture.size.width as usize;
         let format_size = atlas_texture.format.pixel_size();
 
         for (texture_y, bound_y) in (rect_y..rect_y + rect_height).enumerate() {
@@ -199,7 +199,8 @@ impl SpriteSheetBuilder {
             let mut target_bins = BTreeMap::new();
             target_bins.insert(0, TargetBin::new(current_width, current_height, 1));
             atlas_texture = Texture::new_fill(
-                Vec2::new(current_width as f32, current_height as f32),
+                Extent3d::new(current_width as u32, current_height as u32, 0),
+                TextureDimension::D2,
                 &[0, 0, 0, 0],
                 TextureFormat::Rgba8UnormSrgb,
             );
@@ -246,10 +247,10 @@ impl SpriteSheetBuilder {
             self.copy_texture(&mut atlas_texture, texture, packed_location);
         }
         Ok(SpriteSheet {
-            size: atlas_texture.size.into(),
+            size: Dimension2::new(atlas_texture.size.width, atlas_texture.size.height),
             dimensions: Dimension2::new(
-                atlas_texture.size.x() as u32 / self.sprite_size.width,
-                atlas_texture.size.y() as u32 / self.sprite_size.height,
+                atlas_texture.size.width as u32 / self.sprite_size.width,
+                atlas_texture.size.height as u32 / self.sprite_size.height,
             ),
             texture: textures.add(atlas_texture),
             sprites: texture_rects,
@@ -324,8 +325,8 @@ impl SpriteSheet {
                 sprites.push(Rect {
                     min: rect_min,
                     max: Vec2::new(
-                        rect_min.x() + tile_dimensions.width as f32,
-                        rect_min.y() + tile_dimensions.height as f32,
+                        rect_min.x + tile_dimensions.width as f32,
+                        rect_min.y + tile_dimensions.height as f32,
                     ),
                 });
             }

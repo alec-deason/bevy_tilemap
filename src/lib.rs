@@ -114,10 +114,10 @@ impl Plugin for Tilemap2DPlugin {
         app.add_asset::<Tilemap>()
             .add_system_to_stage(
                 "post_update",
-                crate::tilemap::tilemap_auto_configure.system(),
+                crate::tilemap::tilemap_auto_configure,
             )
-            .add_system_to_stage("post_update", crate::tilemap::tilemap_system.system())
-            .add_system_to_stage("post_update", crate::chunk::chunk_update_system.system());
+            .add_system_to_stage("post_update", crate::tilemap::tilemap_system)
+            .add_system_to_stage("post_update", crate::chunk::chunk_update_system);
 
         let resources = app.resources_mut();
         let mut render_graph = resources
@@ -140,14 +140,14 @@ mod lib {
     use bevy::{
         app as bevy_app, asset as bevy_asset, core as bevy_core, ecs as bevy_ecs,
         math as bevy_math, render as bevy_render, sprite as bevy_sprite,
-        transform as bevy_transform, type_registry as bevy_type_registry, utils as bevy_utils,
+        transform as bevy_transform, reflect as bevy_reflect, utils as bevy_utils,
     };
 
     pub use self::{
         bevy_app::{AppBuilder, Events, Plugin, PluginGroup, PluginGroupBuilder},
         bevy_asset::{AddAsset, Assets, Handle, HandleId},
         bevy_core::{Byteable, Bytes},
-        bevy_ecs::{Bundle, Commands, Entity, IntoQuerySystem, Query, Res, ResMut, Resources},
+        bevy_ecs::{Bundle, Commands, Entity, Query, Res, ResMut, Resources},
         bevy_math::{Vec2, Vec3},
         bevy_render::{
             color::Color,
@@ -155,7 +155,7 @@ mod lib {
             mesh::{Indices, Mesh},
             pipeline::{
                 BlendDescriptor, BlendFactor, BlendOperation, ColorStateDescriptor, ColorWrite,
-                CompareFunction, CullMode, DepthStencilStateDescriptor, DynamicBinding, FrontFace,
+                CompareFunction, CullMode, DepthStencilStateDescriptor, FrontFace,
                 PipelineDescriptor, PipelineSpecialization, PrimitiveTopology,
                 RasterizationStateDescriptor, RenderPipeline, RenderPipelines,
                 StencilStateDescriptor, StencilStateFaceDescriptor,
@@ -172,7 +172,7 @@ mod lib {
             components::{GlobalTransform, Parent, Transform},
             hierarchy::BuildChildren,
         },
-        bevy_type_registry::{TypeUuid, Uuid},
+        bevy_reflect::{TypeUuid, Uuid},
         bevy_utils::{HashMap, HashSet},
     };
 

@@ -50,7 +50,7 @@ mod lib {
     #[allow(unused_imports)]
     use bevy::{
         app as bevy_app, asset as bevy_asset, math as bevy_math, render as bevy_render,
-        sprite as bevy_sprite, type_registry as bevy_type_registry, utils as bevy_utils,
+        sprite as bevy_sprite, reflect as bevy_reflect, utils as bevy_utils,
     };
 
     pub use self::{
@@ -61,10 +61,10 @@ mod lib {
             renderer::{
                 RenderResource, RenderResourceHints, RenderResourceIterator, RenderResources,
             },
-            texture::{Texture, TextureFormat},
+            texture::{Texture, TextureFormat, TextureDimension, Extent3d},
         },
         bevy_sprite::Rect,
-        bevy_type_registry::{TypeUuid, Uuid},
+        bevy_reflect::{TypeUuid, Uuid},
         bevy_utils::HashMap,
     };
 
